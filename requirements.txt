@@ -1,0 +1,10 @@
+fastapi==0.111.0
+starlette==0.37.2
+pydantic==2.5.3
+bcrypt==4.0.1
+SQLAlchemy==2.0.27
+python-dotenv==1.0.0
+pytest==8.3.1
+pydantic-settings
+asyncpg==0.29.0
+python-jose==3.3.0

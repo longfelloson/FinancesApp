@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/static/css/auth/login.css" rel="stylesheet">
+</head>
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form>
+    <a href="/">
+        <h3>Операции</h3>
+    </a>
+
+    <label for="name">Название</label>
+    <input id="name" type="text">
+
+    <label for="amount">Сумма</label>
+    <input id="amount" type="text">
+
+    <button onclick="createOperation()" type="button">Добавить</button>
+</form>
+<script src="/static/js/operations/create-operation.js"></script>
+</body>
+</html>

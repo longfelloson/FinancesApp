@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login Form</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <link href="/static/css/auth/login.css" rel="stylesheet">
+</head>
+<body>
+<div class="background">
+    <div class="shape"></div>
+    <div class="shape"></div>
+</div>
+<form>
+    <a href='/register'>
+        <h3>Зарегистрироваться</h3>
+    </a>
+    <label for="username">Username</label>
+    <input id="username" placeholder="Email or Phone" type="text">
+
+    <label for="password">Password</label>
+    <input id="password" placeholder="Password" type="password">
+
+    <button onclick="loginUser()" type="button">Войти</button>
+</form>
+<script src="/static/js/auth/login.js"></script>
+</body>
+</html>
