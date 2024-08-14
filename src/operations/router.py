@@ -11,6 +11,7 @@ from fastapi.responses import (
     HTMLResponse,
 )
 from fastapi.templating import Jinja2Templates
+from fastapi_cache.decorator import cache
 from sqlalchemy.ext.asyncio import AsyncSession
 from starlette.status import (
     HTTP_404_NOT_FOUND,
@@ -32,8 +33,9 @@ templates = Jinja2Templates(directory='../templates/operations')
 
 
 @router.get("/operations", status_code=HTTP_200_OK, response_model=List[Operation])
+@cache(expire=120)
 async def get_operations(
-    limit: int = 10,
+    limit: int = 25,
     offset: int = 0,
     session: AsyncSession = Depends(get_async_session)
 ):

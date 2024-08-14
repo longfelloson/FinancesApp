@@ -2,9 +2,13 @@ from fastapi import (
     FastAPI,
     Request,
 )
+from fastapi_cache import FastAPICache
+from fastapi_cache.backends.redis import RedisBackend
+from fastapi_cache.decorator import cache
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
+from redis import asyncio as aioredis
 
 import database
 from auth.router import router as auth_roter
@@ -22,6 +26,10 @@ app.mount("/static", StaticFiles(directory="../static"), name="static")
 
 @app.on_event("startup")
 async def startup():
+    """Set all necessary utils"""
+    redis = aioredis.from_url("redis://localhost")
+    FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+
     await database.create_tables()
 
 
