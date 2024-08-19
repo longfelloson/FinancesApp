@@ -11,8 +11,8 @@ from starlette.responses import JSONResponse
 from starlette.templating import Jinja2Templates
 
 from auth.password import check_password, hash_password
-from auth.token import create_access_token
 from auth.schemas import AccessToken
+from auth.token import create_access_token
 from database import AsyncSession
 from users import crud
 from users.schemas import UserCredentials

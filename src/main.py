@@ -4,11 +4,10 @@ from fastapi import (
 )
 from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
-from fastapi_cache.decorator import cache
+from redis import asyncio as aioredis
 from starlette.responses import HTMLResponse
 from starlette.staticfiles import StaticFiles
 from starlette.templating import Jinja2Templates
-from redis import asyncio as aioredis
 
 import database
 from auth.router import router as auth_roter

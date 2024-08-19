@@ -1,4 +1,10 @@
-from sqlalchemy import Column, Integer, String, LargeBinary, Float
+from sqlalchemy import (
+    Column,
+    Integer,
+    String,
+    LargeBinary,
+    Float,
+)
 
 from database import Base
 

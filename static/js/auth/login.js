@@ -1,4 +1,4 @@
-async function loginUser(){
+async function loginUser() {
     const username = document.getElementById('username').value;
     const password = document.getElementById('password').value;
 
@@ -13,7 +13,7 @@ async function loginUser(){
 
         if (!response.ok) {
             const data = await response.json();
-            throw new Error(data.detail[0].msg);
+            throw new Error(data.detail.msg);
         }
 
         const data = await response.json();

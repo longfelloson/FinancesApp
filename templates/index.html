@@ -1,26 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta content="width=device-width, initial-scale=1.0" name="viewport">
-        <title>User Operations</title>
-        <link rel="stylesheet" href="/static/css/style.css">
-    </head>
-    <body>
-        <div class="container">
-            <div class="balance">
-                <span>Баланс: <span id="balance-amount">0.0</span></span>
-                <button id="toggle-operations">&#9660;</button>
-            </div>
-            <a href="/create-operation">
-                <div class="balance">
-                    <span>Добавить операцию</span>
-                </div>
-            </a>
-            <div class="operations" id="operations">
-                <div id="operations-list"></div>
-            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>User Operations</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<div class="container">
+    <div class="balance">
+        <span>Баланс: <span id="balance-amount">0.0֏</span></span>
+        <div class="actions">
+            <a href="/create-operation" class="add-operation">+</a>
+            <button id="toggle-operations">&#9660;</button>
         </div>
-        <script src="/static/js/index.js"></script>
-    </body>
+    </div>
+    <div class="operations" id="operations">
+        <div id="operations-list"></div>
+    </div>
+</div>
+<script src="/static/js/index.js"></script>
+</body>
 </html>

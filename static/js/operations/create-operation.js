@@ -21,7 +21,7 @@ async function createOperation() {
                 return;
             }
             const data = await balanceResponse.json();
-            throw new Error(data.detail[0].msg);
+            throw new Error(data.detail.msg);
         }
 
         const requestData = {
@@ -43,7 +43,7 @@ async function createOperation() {
                 return;
             }
             const data = await response.json();
-            throw new Error(data.detail[0].msg);
+            throw new Error(data.detail.msg);
         }
 
         alert("Операция добавлена!");

@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', async function () {
             throw new Error('Ошибка получения баланса: ' + balanceResponse.statusText);
         }
         const userBalance = await balanceResponse.json();
-        document.getElementById('balance-amount').innerText = userBalance.balance;
+        document.getElementById('balance-amount').innerText =  `${userBalance.balance} ֏`;
 
         const operationsResponse = await fetch('/operations');
         if (!operationsResponse.ok) {
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const operationDate = new Date(operation.created_at).toLocaleDateString();
 
-            operationDiv.innerHTML = `<span>${operation.name}</span><span>${operation.amount}</span><span>${operationDate}</span>`;
+            operationDiv.innerHTML = `<span>${operation.name}</span><span>${operation.amount} ֏</span><span>${operationDate}</span>`;
             operationsList.appendChild(operationDiv);
         });
 

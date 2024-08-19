@@ -10,12 +10,25 @@
     align-items: center;
     padding: 10px;
     border: 1px solid #ccc;
+    border-radius: 10px;
     margin-bottom: 10px;
+}
+
+.actions {
+    display: flex;
+    align-items: center;
+}
+
+.add-operation {
+    display: inline-block;
+    font-size: 20px;
+    color: #007BFF;
+    text-decoration: none;
+    margin-right: 10px;
 }
 
 .operations {
     display: none; /* Initially hidden */
-    border: 1px solid #ccc;
     padding: 10px;
 }
 
@@ -24,6 +37,17 @@
     justify-content: space-between;
     padding: 10px;
     margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border-bottom: 1px solid #ccc; /* Single bottom border for each operation */
+    border-radius: 10px; /* Remove border-radius for a flat design */
+}
+
+/* Styling for the amount and date to create space between them */
+.operation .amount {
+    margin-right: 15px; /* Add margin to separate amount from the date */
+}
+
+/* Remove the last border for the last operation */
+.operation:last-child {
+    margin-bottom: 0;
+    border-bottom: none;
 }
