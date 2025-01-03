@@ -4,9 +4,9 @@ from fastapi import (
     Request,
     Depends,
 )
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from auth.token import verify_access_token
-from database import AsyncSession
 from users import crud
 from users.models import User
 

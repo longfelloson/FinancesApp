@@ -14,7 +14,7 @@ async def create_user(user: UserCredentials, session: AsyncSession) -> None:
 
 
 async def get_user_by_id(user_id: int, session: AsyncSession) -> Optional[User]:
-    user = await session.execute(select(User).where(User.id_ == user_id))
+    user = await session.execute(select(User).where(User.id == user_id))
     return user.scalar_one_or_none()
 
 
@@ -38,7 +38,7 @@ async def update_user_balance(
     """If amount > 0 increase user's balance otherwise decrease user's balance.'"""
     stmt = (
         update(User)
-        .where(User.id_ == user_id)
+        .where(User.id == user_id)
         .values(balance=User.balance + data.amount if data.amount > 0 else User.balance - abs(data.amount))
     )
     await session.execute(stmt)
@@ -46,5 +46,5 @@ async def update_user_balance(
 
 
 async def get_user_balance(user_id: int, session: AsyncSession) -> Union[int, float]:
-    user_balance = await session.execute(select(User.balance).where(User.id_ == user_id))
+    user_balance = await session.execute(select(User.balance).where(User.id == user_id))
     return user_balance.scalar_one()

@@ -1,12 +1,12 @@
 document.addEventListener('DOMContentLoaded', async function () {
     try {
-        const balanceResponse = await fetch('/user-balance');
+        const balanceResponse = await fetch('/balance');
         if (!balanceResponse.ok) {
             if (balanceResponse.status === 401) {
                 window.location.href = '/login';
                 return;
             }
-            throw new Error('Ошибка получения баланса: ' + balanceResponse.statusText);
+            throw new Error('Error during getting a balance: ' + balanceResponse.statusText);
         }
         const userBalance = await balanceResponse.json();
         document.getElementById('balance-amount').innerText =  `${userBalance.balance} ֏`;
@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', async function () {
                 window.location.href = '/login';
                 return;
             }
-            throw new Error('Ошибка получения операций: ' + operationsResponse.statusText);
+            throw new Error('Error during getting the operations: ' + operationsResponse.statusText);
         }
         const operationsData = await operationsResponse.json();
         const operationsList = document.getElementById('operations-list');
@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', async function () {
 
             const operationDate = new Date(operation.created_at).toLocaleDateString();
 
-            operationDiv.innerHTML = `<span>${operation.name}</span><span>${operation.amount} ֏</span><span>${operationDate}</span>`;
+            operationDiv.innerHTML = `<span>${operation.name}</span><span>${operation.amount} ${operation.currency}</span><span>${operationDate}</span>`;
             operationsList.appendChild(operationDiv);
         });
 

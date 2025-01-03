@@ -9,11 +9,12 @@ from fastapi.responses import HTMLResponse
 from fastapi.security import OAuth2PasswordRequestForm
 from starlette.responses import JSONResponse
 from starlette.templating import Jinja2Templates
+from sqlalchemy.ext.asyncio import AsyncSession
 
-from auth.password import check_password, hash_password
+from auth.password import check_password, get_hashed_password
 from auth.schemas import AccessToken
 from auth.token import create_access_token
-from database import AsyncSession
+from database import get_async_session
 from users import crud
 from users.schemas import UserCredentials
 
@@ -23,7 +24,7 @@ templates = Jinja2Templates(directory="../templates/auth")
 
 @router.post("/register", response_class=JSONResponse)
 async def create_user(
-    session: AsyncSession,
+    session: AsyncSession = Depends(get_async_session),
     credentials: OAuth2PasswordRequestForm = Depends(),
 ):
     user = await crud.get_user_by_email(credentials.username, session)
@@ -32,11 +33,11 @@ async def create_user(
             status_code=status.HTTP_409_CONFLICT,
             detail={"msg": "User already exists."},
         )
+    
     user_credentials = UserCredentials(
         email=credentials.username,
-        hashed_password=hash_password(credentials.password)
+        hashed_password=get_hashed_password(credentials.password)
     )
-
     await crud.create_user(user_credentials, session)
 
     token = create_access_token(user_credentials.email)
@@ -46,14 +47,14 @@ async def create_user(
     )
 
 
-@router.get("/register", response_class=HTMLResponse)
+@router.get("/registration", response_class=HTMLResponse)
 async def get_registration_page(request: Request):
     return templates.TemplateResponse("registration.html", {"request": request})
 
 
 @router.post("/login", response_model=AccessToken)
 async def login_user(
-    session: AsyncSession,
+    session: AsyncSession = Depends(get_async_session),
     credentials: OAuth2PasswordRequestForm = Depends(),
 ):
     user = await crud.get_user_by_email(email=credentials.username, session=session)

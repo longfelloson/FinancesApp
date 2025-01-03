@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
+    <title>Operations</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/static/css/auth/login.css" rel="stylesheet">
 </head>
@@ -13,16 +13,22 @@
 </div>
 <form>
     <a href="/">
-        <h3>Операции</h3>
+        <h3>Creating</h3>
     </a>
 
-    <label for="name">Название</label>
+    <label for="name">Description</label>
     <input id="name" type="text">
 
-    <label for="amount">Сумма</label>
+    <label for="amount">Amount</label>
     <input id="amount" type="text">
 
-    <button onclick="createOperation()" type="button">Добавить</button>
+    <label for="currency">Currency</label>
+    <select id="currency">
+        {% for currency in currencies %}
+            <option value={{currency}}>{{currency}}</option>
+        {% endfor %}
+    </select>
+    <button onclick="createOperation()" type="button">Create</button>
 </form>
 <script src="/static/js/operations/create-operation.js"></script>
 </body>

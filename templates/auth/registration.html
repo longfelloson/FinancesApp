@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login Form</title>
+    <title>Registration</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <link href="/static/css/auth/login.css" rel="stylesheet">
 </head>
@@ -12,7 +12,9 @@
     <div class="shape"></div>
 </div>
 <form>
-    <h3>Регистрация</h3>
+    <a href="/login">
+        <h3>Login</h3>
+    </a>
 
     <label for="username">Email</label>
     <input id="username" placeholder="Email" type="email" required>
@@ -20,7 +22,7 @@
     <label for="password">Password</label>
     <input id="password" placeholder="Password" type="password" required>
 
-    <button onclick="registerUser()" type="button">Зарегистрироваться</button>
+    <button onclick="registerUser()" type="button">Register</button>
 </form>
 <script src="/static/js/auth/register.js"></script>
 </body>

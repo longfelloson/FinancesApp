@@ -28,7 +28,7 @@ async def startup():
     """Set all necessary utils"""
     redis = aioredis.from_url("redis://localhost")
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
-
+    
     await database.create_tables()
 
 

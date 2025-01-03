@@ -22,7 +22,7 @@ from starlette.status import (
 from auth.token import verify_access_token
 from database import get_async_session
 from operations import crud
-from operations.enums import OperationType
+from operations.enums import Currency, OperationType
 from operations.schemas import (
     Operation,
     CreateOperation,
@@ -32,8 +32,11 @@ router = APIRouter(tags=['Operations'], dependencies=[Depends(verify_access_toke
 templates = Jinja2Templates(directory='../templates/operations')
 
 
-@router.get("/operations", status_code=HTTP_200_OK, response_model=List[Operation])
-@cache(expire=120)
+@router.get(
+    "/operations", 
+    status_code=HTTP_200_OK,
+    response_model=List[Operation],
+)
 async def get_operations(
     limit: int = 25,
     offset: int = 0,
@@ -44,8 +47,15 @@ async def get_operations(
     return operations
 
 
-@router.get("/operations/{operation_id}", status_code=HTTP_200_OK, response_model=Operation)
-async def get_operation(operation_id: int, session: AsyncSession = Depends(get_async_session)):
+@router.get(
+    "/operations/{operation_id}", 
+    status_code=HTTP_200_OK, 
+    response_model=Operation,
+)
+async def get_operation(
+    operation_id: int, 
+    session: AsyncSession = Depends(get_async_session),
+):
     """Return operation by provided id"""
     operation = await crud.get_operation(operation_id, session)
     if not operation:
@@ -57,8 +67,15 @@ async def get_operation(operation_id: int, session: AsyncSession = Depends(get_a
     return operation
 
 
-@router.post("/operations", status_code=HTTP_201_CREATED, response_class=JSONResponse)
-async def create_operation(operation: CreateOperation, session: AsyncSession = Depends(get_async_session)):
+@router.post(
+    "/operations", 
+    status_code=HTTP_201_CREATED, 
+    response_class=JSONResponse,
+)
+async def create_operation(
+    operation: CreateOperation, 
+    session: AsyncSession = Depends(get_async_session),
+):
     """Create a new operation"""
     operation.type_ = OperationType.EXPENSE if operation.amount < 0 else OperationType.INCOME
 
@@ -67,7 +84,11 @@ async def create_operation(operation: CreateOperation, session: AsyncSession = D
     return JSONResponse(status_code=HTTP_201_CREATED, content={"msg": "Operation created."})
 
 
-@router.delete("/operations", status_code=HTTP_200_OK, response_class=JSONResponse)
+@router.delete(
+    "/operations", 
+    status_code=HTTP_200_OK, 
+    response_class=JSONResponse,
+)
 async def delete_operation(operation_id: int, session: AsyncSession = Depends(get_async_session)):
     """Delete operation by provided id"""
     await crud.delete_operation(operation_id, session)
@@ -75,7 +96,16 @@ async def delete_operation(operation_id: int, session: AsyncSession = Depends(ge
     return JSONResponse(status_code=HTTP_200_OK, content={"msg": "Operation deleted."})
 
 
-@router.get("/create-operation", status_code=HTTP_200_OK, response_class=HTMLResponse)
+@router.get(
+    "/operation/create",
+    status_code=HTTP_200_OK, 
+    response_class=HTMLResponse,
+)
 async def get_create_operation_page(request: Request):
     """Return HTML page with form to create an operation"""
-    return templates.TemplateResponse("create-operation.html", {"request": request})
+    return templates.TemplateResponse(
+        "create-operation.html", {
+            "request": request, 
+            "currencies": [currency for currency in Currency]
+        },
+    )

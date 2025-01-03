@@ -1,13 +1,14 @@
 async function createOperation() {
     const amount = document.getElementById('amount').value;
     const name = document.getElementById('name').value;
+    const currency = document.getElementById('currency').value;
 
     const balanceData = {
         amount: amount,
     };
 
     try {
-        const balanceResponse = await fetch('/user-balance', {
+        const balanceResponse = await fetch('/balance', {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -27,6 +28,7 @@ async function createOperation() {
         const requestData = {
             amount: amount,
             name: name,
+            currency: currency
         };
 
         const response = await fetch('/operations', {

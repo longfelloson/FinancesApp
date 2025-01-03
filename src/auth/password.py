@@ -1,10 +1,12 @@
 import bcrypt
 
 
-def hash_password(password: str):
+def get_hashed_password(password: str) -> bytes:
     pw = bytes(password, "utf-8")
     salt = bcrypt.gensalt()
-    return bcrypt.hashpw(pw, salt)
+
+    hashed_password = bcrypt.hashpw(pw, salt)
+    return hashed_password
 
 
 def check_password(password: str, hashed_password: str) -> bool:
